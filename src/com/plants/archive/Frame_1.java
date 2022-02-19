@@ -142,7 +142,7 @@ public class Frame_1 extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == b6) {
 			dispose();
-			RepWin j = new RepWin();
+			Reports j = new Reports();
 			j.setVisible(true);
 		}
 		if (e.getSource() == b1) {

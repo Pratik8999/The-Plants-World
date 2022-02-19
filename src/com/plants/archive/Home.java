@@ -174,9 +174,9 @@ class Home extends JFrame implements ActionListener {
             dispose();
             new Sale();
         }
-        if (e.getActionCommand().equalsIgnoreCase("Repwin")) {
+        if (e.getActionCommand().equalsIgnoreCase("Report")) {
             dispose();
-            new RepWin();
+            new Reports();
 
         }
         if (e.getActionCommand().equalsIgnoreCase("Stock")) {
@@ -201,7 +201,7 @@ class Home extends JFrame implements ActionListener {
         if (e.getActionCommand().equalsIgnoreCase("PURCHASE REPORT"))
         {
             dispose();
-            new RepWin();
+            new Reports();
         }
 
         if (e.getActionCommand().equalsIgnoreCase("Customer Issue")) {

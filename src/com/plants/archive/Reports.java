@@ -5,12 +5,12 @@ import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.border.*;
 
-class RepWin extends JFrame implements ActionListener
+class Reports extends JFrame implements ActionListener
 {
 	JButton RWLabB,RWStockB,RWBackB;
 	 JLabel l2,l;
 	 Icon img;
-	public RepWin()
+	public Reports()
 	{
 		super("Report Window");
 		RWStockB=new JButton();
@@ -19,14 +19,14 @@ class RepWin extends JFrame implements ActionListener
 		l=new JLabel();
 		getContentPane().setLayout(null);
 		getContentPane().setBackground(new Color(250,200,255));
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
 		img=new ImageIcon("c:\\program files\\java\\jdk1.5.0\\bin\\project1\\flowers\\500.gif");
        l2=new JLabel(img); 
        l2.setBounds(10,60,570,320);
         getContentPane().add(l2);
         
-        l.setFont(new Font("Monotype Corsiva",Font.BOLD, 30));
+        l.setFont(new Font("Arial",Font.BOLD, 30));
 //l.setForeground(new Color(200,40,0));
       l.setForeground(Color.blue);
       l.setText("The Plants World");
@@ -52,8 +52,11 @@ class RepWin extends JFrame implements ActionListener
 		getContentPane().add(RWBackB);
 		RWBackB.setBounds(170,500,200,40);
 		RWBackB.addActionListener(this);
-	    //setVisible(true);
+	    setVisible(true);
 	    setSize(600,600);
+		setLocation(450,117);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(""));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	  }
 	  public void actionPerformed(ActionEvent e)
 	  {
@@ -76,10 +79,4 @@ class RepWin extends JFrame implements ActionListener
 	  		f2.setVisible(true);
 	  	}
 	  }		
-public static void main(String args[])
-    {
-     RepWin r1=new RepWin();
-      r1.show();
-       r1.setDefaultCloseOperation(r1.EXIT_ON_CLOSE);
-   }
-}	  				  
+}
