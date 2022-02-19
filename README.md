@@ -1,0 +1,2 @@
+# The-Plants-World
+The Plants World is an simple java application. This application is created to serve the need some management tasks in the plants nursery,so that the business owners can focus on business growth not management.It's Clean &amp; Interactive Design attracts users to work with. Any kind of user can easily gets handy on this app.  More Security and Management features are coming soon.
