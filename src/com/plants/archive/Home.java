@@ -146,9 +146,11 @@ class Home extends JFrame implements ActionListener {
         //l1.setBackground(Color.green);
         p4.add(l1);
         l1.setBounds(10, 5, 330, 40);
+        setIconImage(Toolkit.getDefaultToolkit().getImage("out/production/ENV/resources/Main Frame Icon.jpg"));
         setLocation(350,140);
         setSize(800, 575);
         setVisible(true);
+
 
     }
 

@@ -87,6 +87,7 @@ public class UserLogin extends JFrame implements ActionListener {
 		setSize(650, 650);
 
 		setLocation(430, 110);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("out/production/ENV/resources/User Login.png"));
 		setVisible(true);
 		setTitle("Administrator Login");
 		setBackground(new Color(50, 150, 20));

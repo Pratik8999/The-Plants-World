@@ -55,7 +55,6 @@ class Reports extends JFrame implements ActionListener
 	    setVisible(true);
 	    setSize(600,600);
 		setLocation(450,117);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(""));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	  }
 	  public void actionPerformed(ActionEvent e)
