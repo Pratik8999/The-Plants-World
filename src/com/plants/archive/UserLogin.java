@@ -1,18 +1,20 @@
 package com.plants.archive;
 
+import com.plants.DatabasePipleline.GlobleConnection;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.*;
 import javax.swing.border.*;
 
 public class UserLogin extends JFrame implements ActionListener {
-	JLabel L1, L2, L3;
-	TextField TF1;
-	TextField TF2;
-	JButton B1, B2;
-	JPanel P1, P2, P3;
+	private final TextField userNameTf, passwordTf;
+	private final JButton loginBtn, cancelBtn;
 
 	public UserLogin() {
+
 		Container C = getContentPane();
 		C.setLayout(null);
 		C.setBackground(new Color(25, 200, 150));
@@ -24,45 +26,38 @@ public class UserLogin extends JFrame implements ActionListener {
 		P1.setBorder(new LineBorder(new Color(25, 251, 50), 3));
 		P1.setBounds(50, 50, 500, 300);
 
-		JLabel L1 = new JLabel();
-		L1.setFont(new Font("Consolas", 20, 30));
-		L1.setForeground(Color.black);
-		//	L1.setForeground(new Color(50,10,150));
-		L1.setText(" Welcome To The Plants World");
-		C.add(L1);
-		L1.setBounds(50, 50, 800, 50);
-		 /*L1=new JLabel(new ImageIcon("flowers/11.jpg"));
-		L1.setSize(700,650);
-		C.add(L1);*/
+		JLabel tpwLabel = new JLabel();
+		tpwLabel.setFont(new Font("Consoles", Font.BOLD, 30));
+		tpwLabel.setForeground(Color.black);
+		tpwLabel.setText(" Welcome To The Plants World");
+		C.add(tpwLabel);
+		tpwLabel.setBounds(80, 50, 800, 50);
 
-		L2 = new JLabel();
-		L2.setFont(new Font("Consolas", 10, 20));
-		L2.setForeground(new Color(50, 10, 150));
-		L2.setText("PASSWORD ::");
-		C.add(L2);
-		L2.setBounds(125, 230, 160, 50);
+		JLabel loginLabel = new JLabel();
+		loginLabel.setFont(new Font("Consoles", Font.BOLD, 20));
+		loginLabel.setForeground(new Color(50, 10, 150));
+		loginLabel.setText("Username ::");
+		C.add(loginLabel);
+		loginLabel.setBounds(125, 169, 149, 29);
 
-		L3 = new JLabel();
-		L3.setFont(new Font("Consolas", 10, 20));
-		L3.setForeground(new Color(50, 10, 150));
-		L3.setText("USERNAME ::");
-		C.add(L3);
-		L3.setBounds(125, 169, 149, 29);
+		JLabel passwordLabel = new JLabel();
+		passwordLabel.setFont(new Font("Consoles", Font.BOLD, 20));
+		passwordLabel.setForeground(new Color(50, 10, 150));
+		passwordLabel.setText("Password ::");
+		C.add(passwordLabel);
+		passwordLabel.setBounds(125, 230, 160, 50);
 
-		TF1 = new TextField();
-		P1.add(TF1);
+		userNameTf = new TextField();
+		P1.add(userNameTf);
 
-		// TF1.setToolTipText("ENTER THE PASSWORD");
-		TF1.setBounds(250, 195, 150, 25);
-		TF1.setEchoChar('*');
+		userNameTf.setBounds(250, 120, 150, 25);
 
 		C.add(P1);
 
-		TF2 = new TextField();
-		//TF2.setLocation(50,50 );
-		P1.add(TF2);
-		//TF2.setToolTipText("ENTER THE SERVICE NO");
-		TF2.setBounds(250, 120, 150, 25);
+		passwordTf = new TextField();
+		P1.add(passwordTf);
+		passwordTf.setBounds(250, 195, 150, 25);
+		passwordTf.setEchoChar('*');
 
 		JPanel P2 = new JPanel();
 		P2.setLayout(null);
@@ -70,47 +65,65 @@ public class UserLogin extends JFrame implements ActionListener {
 		P2.setBorder(new LineBorder(new Color(250, 50, 0), 3));
 		P2.setBounds(100, 400, 400, 75);
 
-		B1 = new JButton("LOGIN");
-		B1.setFont(new Font("Arial", 1, 20));
-		B1.addActionListener(this);
-		P2.add(B1);
-		B1.setBounds(80, 25, 100, 30);
+		loginBtn = new JButton("LOGIN");
+		loginBtn.setFont(new Font("Arial", Font.BOLD, 20));
+		loginBtn.addActionListener(this);
+		P2.add(loginBtn);
+		loginBtn.setBounds(80, 25, 100, 30);
 
-		B2 = new JButton("EXIT");
-		B2.setFont(new Font("Arial", 1, 20));
-		B2.addActionListener(this);
-		P2.add(B2);
-		B2.setBounds(220, 25, 100, 30);
+		cancelBtn = new JButton("EXIT");
+		cancelBtn.setFont(new Font("Arial", Font.BOLD, 20));
+		cancelBtn.addActionListener(this);
+		P2.add(cancelBtn);
+		cancelBtn.setBounds(220, 25, 100, 30);
 
 		C.add(P2);
 
 		setSize(650, 650);
-
 		setLocation(430, 110);
-		setIconImage(Toolkit.getDefaultToolkit().getImage("out/production/ENV/resources/User Login.png"));
 		setVisible(true);
 		setTitle("Administrator Login");
+		setIconImage(Toolkit.getDefaultToolkit().getImage("out/production/ENV/Resources/User Login.png"));
 		setBackground(new Color(50, 150, 20));
-	}//userlogin
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
 
 	public void actionPerformed(ActionEvent e) {
-		//String s=e.getActionCommand();
 
-		if (e.getSource() == B1) {
-			if ((TF1.getText().equalsIgnoreCase("admin")) && (TF2.getText().equalsIgnoreCase("admin"))) {
-				dispose();
-				Home h = new Home();
-				h.setVisible(true);
+		if (e.getSource() == loginBtn) {
+			try {
+				new GlobleConnection();
 
-			} else {
-				JOptionPane.showMessageDialog(null, "!! ENTER THE CORRECT PASSWORD !!");
+				PreparedStatement loginStatement = GlobleConnection.connection.prepareStatement("select user_name,user_password from user_administration where user_name=? and user_password=?");
+				loginStatement.setString(1,userNameTf.getText());
+				loginStatement.setString(2,passwordTf.getText());
 
-			}
+				ResultSet loginResultSet = loginStatement.executeQuery();
+
+				System.out.println(userNameTf.getText() + ":" + passwordTf.getText());
+
+				if(loginResultSet.next()){
+					JOptionPane.showMessageDialog(null,"! Login Successful !");
+					System.out.println(loginResultSet.getString(1)+":"+loginResultSet.getString(2));
+					dispose();
+					new Home();
+				}
+				else {
+
+					JOptionPane.showMessageDialog(null,"!! Login Failed !!");
+					dispose();
+				}
+
+			} catch (Exception throwable) {
+				throwable.printStackTrace();
+			}//JOptionPane.showMessageDialog(null, "!! Unable to Connect Database !!\nPlease Contact Database Administrator : +91-8796374863");
+
+
 		}
-
-		if (e.getSource() == B2) {
-			System.exit(0);
+		else if (e.getSource() == cancelBtn) {
+			userNameTf.setText("");
+			passwordTf.setText("");
+			dispose();
 		}
-
 	}
 }
