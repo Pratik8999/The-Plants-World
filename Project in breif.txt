@@ -1,0 +1,23 @@
+The Plants World
+
+Dedicated to Nursery Owner.
+
+The Main Privilages User id Admin in the case of this application under that every user is assigned to a specific work & working accord...
+ 
+• Only admin can use / create users
+
+User_Creation for Nursery Entities : Modules--> Create User Form / Login Form / Delete User Form
+
+Database Name :  the_plants_world
+
+Database Tables :  user_creation , password_history
+
+Customers Of Nursery : Modules --> Customer Registration Form / Customer Issues Form / Customers Bills  		<--- Reports of Customers
+
+Database Tables :  customers / bills , Plants
+
+
+Stock : Modules --> Stock of Plants , Stock to Other Sales Materials like Grass , Jars , fertilizers , Seeds etc...	<---- Reports of Stock.
+		
+Database Tables : Plants , ExtraSales / Resources
+
