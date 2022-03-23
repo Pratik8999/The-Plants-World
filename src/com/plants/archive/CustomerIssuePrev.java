@@ -1,5 +1,7 @@
 package com.plants.archive;
 
+import com.plants.DatabasePipleline.GlobleConnection;
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -169,15 +171,13 @@ public class CustomerIssue extends JFrame implements ActionListener {
 		}
 		if (e.getSource() == b1) {
 			try {
-				Class.forName("com.mysql.cj.jdbc.Driver");
-				Connection c1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/nms?useSSL=false", "root", "");
-				Statement s1 = c1.createStatement();
+
+				Statement s1 = GlobleConnection.connection.createStatement();
 				String ss1 = ("insert into customer_issue values('" + tf2.getText() + "','" + tf3.getText() + "','"
 						+ tf4.getText() + "','" + tf5.getText() + "','" + dt1.getText() + "')");
 				s1.executeUpdate(ss1);
 
-				c1.close();
-				
+
 				JOptionPane.showMessageDialog(null,"RECORD SAVED SUCESSFULLY!");
 				tf2.setText("");
 				tf3.setText("");

@@ -1,11 +1,26 @@
 package com.plants.archive;
 
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
+import com.plants.DatabasePipleline.GlobleConnection;
+
+import javax.swing.JFrame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Container;
+import javax.swing.border.LineBorder;
+import java.awt.Dimension;
+import javax.swing.JOptionPane;
 import java.util.Calendar;
-import javax.swing.border.*;
-import java.sql.*;
+import javax.swing.SwingConstants;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
 
 public class CustomerBill extends JFrame implements ActionListener {
 
@@ -171,15 +186,12 @@ public class CustomerBill extends JFrame implements ActionListener {
 
 		if (e.getSource() == b1) {
 			try {
-				Class.forName("com.mysql.cj.jdbc.Driver");
-				Connection c1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/nms?useSSL=false", "root", "");
-				Statement s1 = c1.createStatement();
+				Statement s1 = GlobleConnection.connection.createStatement();
 				String ss1 = ("insert into customer_receive values('" + customerId.getText() + "','" + customerName.getText() + "','"
 						+ customerAddress.getText() + "','" + Amount.getText() + "','" + Date.getText() + "')");
 				s1.executeUpdate(ss1);
 
-				c1.close();
-				
+
 				JOptionPane.showMessageDialog(null,"Records For "+customerName.getText()+" Saved Successfully");
 
 				/**
