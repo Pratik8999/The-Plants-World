@@ -1,13 +1,14 @@
 package com.plants.archive;
 
+import com.plants.DatabasePipleline.GlobleConnection;
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.sql.*;
-class stock extends JFrame implements ActionListener
+class Stock extends JFrame implements ActionListener
 {
-   Connection con;
-  Statement stmt;
+
   ResultSet rs,resultt1;
   boolean flag=false;
   boolean flag1=false;	
@@ -18,7 +19,7 @@ class stock extends JFrame implements ActionListener
   Icon img;
   JTextField tf1,tf2,tf3,tf4,tf5,tf6,tf7;
  
-   public stock()
+   public Stock()
    {
       frame=new JFrame();
       p1=new JPanel();
@@ -128,6 +129,8 @@ class stock extends JFrame implements ActionListener
         l1.setForeground(Color.red);
         p4.add(l1);
         l1.setBounds(5,5,400,40);
+       setVisible(true);
+       //setLocation(350,450);
         
 } 	
   public void actionPerformed(ActionEvent e)
@@ -156,11 +159,9 @@ class stock extends JFrame implements ActionListener
    {
      try
         {
-        	Class.forName("com.mysql.cj.jdbc.Driver");
-        	Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/nms","root","root");
-        	Statement s2=con.createStatement();
+        	Statement s2= GlobleConnection.connection.createStatement();
         	ResultSet r2=s2.executeQuery("select sum(p_qty) from purchase where p_categary='outdoor'");
-        	Statement ss2=con.createStatement();
+        	Statement ss2=GlobleConnection.connection.createStatement();
         	ResultSet rr2=ss2.executeQuery("select sum(p_qty) from Sale where p_categary='outdoor'");
              r2.next();
              rr2.next();
@@ -170,18 +171,16 @@ class stock extends JFrame implements ActionListener
   }
   catch(Exception e2)
   {
-     
+     e2.printStackTrace();
    }   
   }
     if(e.getSource()==b3)
    {
    	try
         {
-        	Class.forName("com.mysql.cj.jdbc.Driver");
-        	Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/nms","root","");
-        	Statement s3=con.createStatement();
+        	Statement s3=GlobleConnection.connection.createStatement();
         	ResultSet r3=s3.executeQuery("select sum(p_qty) from purchase where p_categary='semiset'");
-        	Statement ss3=con.createStatement();
+        	Statement ss3=GlobleConnection.connection.createStatement();
         	ResultSet rr3=ss3.executeQuery("select sum(p_qty) from Sale where p_categary='semiset'");
              r3.next();
              rr3.next();
@@ -191,7 +190,7 @@ class stock extends JFrame implements ActionListener
   }
   catch(Exception e3)
   {
-     
+     e3.printStackTrace();
    }   
      
   }   
@@ -200,11 +199,9 @@ class stock extends JFrame implements ActionListener
      
      try
         {
-        	Class.forName("com.mysql.cj.jdbc.Driver");
-        	Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/nms","root","");
-        	Statement s4=con.createStatement();
+        	Statement s4=GlobleConnection.connection.createStatement();
         	ResultSet r4=s4.executeQuery("select sum(p_qty) from purchase where p_categary='indoor'");
-            Statement ss4=con.createStatement();
+            Statement ss4=GlobleConnection.connection.createStatement();
         	ResultSet rr4=ss4.executeQuery("select sum(p_qty) from Sale where p_categary='indoor'");
              r4.next();
              rr4.next();
@@ -214,7 +211,7 @@ class stock extends JFrame implements ActionListener
   }
   catch(Exception e4)
   {
-     
+     e4.printStackTrace();
    }   
    }   
     if(e.getSource()==b5)
@@ -222,11 +219,9 @@ class stock extends JFrame implements ActionListener
      
      try
         {
-        	Class.forName("com.mysql.cj.jdbc.Driver");
-        	Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/nms","root","");
-        	Statement s5=con.createStatement();
+        	Statement s5=GlobleConnection.connection.createStatement();
         	ResultSet r5=s5.executeQuery("select sum(p_qty) from purchase where p_categary='lawn grass'");
-        	Statement ss5=con.createStatement();
+        	Statement ss5=GlobleConnection.connection.createStatement();
         	ResultSet rr5=ss5.executeQuery("select sum(p_qty) from Sale where p_categary='lawn grass'");
              r5.next();
              rr5.next();
@@ -236,18 +231,16 @@ class stock extends JFrame implements ActionListener
   }
   catch(Exception e5)
   {
-     
+     e5.printStackTrace();
    }   
    }   
      if(e.getSource()==b6)
    {
      try
         {
-        	Class.forName("com.mysql.cj.jdbc.Driver");
-        	Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/nms","root","");
-        	Statement s6=con.createStatement();
+        	Statement s6=GlobleConnection.connection.createStatement();
         	ResultSet r6=s6.executeQuery("select sum(p_qty) from purchase where p_categary='border of road'");
-        	Statement ss6=con.createStatement();
+        	Statement ss6=GlobleConnection.connection.createStatement();
         	ResultSet rr6=ss6.executeQuery("select sum(p_qty) from Sale where p_categary='border of road'");
              r6.next();
              rr6.next();
@@ -257,18 +250,16 @@ class stock extends JFrame implements ActionListener
   }
   catch(Exception e6)
   {
-     
+     e6.printStackTrace();
    }   
    }   
     if(e.getSource()==b7)
    {
      try
         {
-        	Class.forName("com.mysql.cj.jdbc.Driver");
-        	Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/nms","root","");
-        	Statement s7=con.createStatement();
+        	 Statement s7=GlobleConnection.connection.createStatement();
         	ResultSet r7=s7.executeQuery("select sum(p_qty) from purchase where p_categary='water lilly'");
-        	Statement ss7=con.createStatement();
+        	Statement ss7=GlobleConnection.connection.createStatement();
         	ResultSet rr7=ss7.executeQuery("select sum(p_qty) from Sale where p_categary='water lilly'");
              r7.next();
              rr7.next();
@@ -278,14 +269,13 @@ class stock extends JFrame implements ActionListener
   }
   catch(Exception e7)
   {
-     
+     e7.printStackTrace();
    }   
    }  
     if(e.getSource()==b8)
    {
-    dispose();
-    dstock d=new dstock();
-    d.setVisible(true);
+    new dstock();
+
 }  
  if(e.getSource()==b9)
  {
@@ -297,7 +287,7 @@ class stock extends JFrame implements ActionListener
 public static void main(String args[]) 
 {
   
-  stock s=new stock();
+  Stock s=new Stock();
       s.show();
    s.setDefaultCloseOperation(s.EXIT_ON_CLOSE);
 
