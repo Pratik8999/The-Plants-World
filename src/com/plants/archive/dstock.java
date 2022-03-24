@@ -1,5 +1,7 @@
 package com.plants.archive;
 
+import com.plants.DatabasePipleline.GlobleConnection;
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -18,10 +20,10 @@ public class dstock extends JFrame implements ActionListener
   JLabel dt,l1,l2,l3,l5,l,l4;
   JTextField dt1,tf1,tf2,tf3,tf4,tf5;
   JTextArea ta1;
-//  JFrame frame;
+
    public dstock()
    {
-  //  frame=new JFrame();
+
     l=new JLabel("DETAIL STOCK");
     p3=new JPanel();
     dt=new JLabel("Date   :");
@@ -136,7 +138,7 @@ public class dstock extends JFrame implements ActionListener
        
         b4.setFont(new Font("Arial",1,12));
         b4.setText("SEARCH");
-       // b4.setMnemonic('e');
+
         b4.setForeground(new Color(255,51,51));
         b4.setBorder(new LineBorder(new Color(0,0,0),1,true));
         p2.add(b4);
@@ -187,20 +189,20 @@ public class dstock extends JFrame implements ActionListener
 
          Calendar cal=Calendar.getInstance();
          dt1.setText((cal.get(Calendar.DATE))+"/"+(cal.get(Calendar.MONTH)+1)+"/"+(cal.get(Calendar.YEAR)));
-         dt1.setEditable(false);  
+         dt1.setEditable(false);
+       setVisible(true);
+       setSize(1000, 800);
+       setLocation(400,150);
+       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 }
 
-void exitForm(WindowEvent evt)
-{
-   System.exit(0);
-}
+
 public void actionPerformed(ActionEvent e)
 {
   if(e.getSource()== b6)
   {
     dispose();
-    stock j=new stock();
-    j.setVisible(true);
+    new Stock();
   }
   if(e.getSource()== b4)
   {
@@ -209,13 +211,11 @@ public void actionPerformed(ActionEvent e)
      JOptionPane.showMessageDialog(null,"ENTER ITEM CODE");
      try
      {
-         	
-     	Class.forName("com.mysql.cj.jdbc.Driver");
-     	Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/nms?useSSL=false","root","root");
-     	Statement s1=con.createStatement();
+         	Statement s1 = GlobleConnection.connection.createStatement();
+
      	ResultSet r1=s1.executeQuery("select sum(p_qty) from purchase where p_categary='"+tf3.getText()+"' and p_name='"+tf4.getText()+"'");
      	r1.next();
-     	Statement s2=con.createStatement();
+     	Statement s2=GlobleConnection.connection.createStatement();
      	ResultSet r2=s2.executeQuery("Select sum(p_qty) from Sale where p_categary='"+tf3.getText()+"'and p_name='"+tf4.getText()+"'");
      	r2.next();
      	tf5.setFont(new Font("Arial",0,56));
@@ -224,6 +224,7 @@ public void actionPerformed(ActionEvent e)
   }
   catch(Exception e1)
   {
+      e1.printStackTrace();
   }
  } 	
 
@@ -240,13 +241,11 @@ if(e.getSource()==b2)
 
 		try
 		{
-		 Class.forName("com.mysql.cj.jdbc.Driver");
-               Connection c1=DriverManager.getConnection("jdbc:mysql://localhost:3306/nms?useSSL=false", "root", "root");
-               Statement s1=c1.createStatement();
-               String  ss1=("insert into d_stock values('"+tf4.getText()+"','"+tf3.getText()+"','"+tf5.getText()+"')");
+		   Statement s1 = GlobleConnection.connection.createStatement();
+               String  ss1=("insert into dstock values('"+tf4.getText()+"','"+tf3.getText()+"','"+tf5.getText()+"')");
                
                s1.executeUpdate(ss1);                                             
-               c1.close();	
+
                
            	JOptionPane.showMessageDialog(null,"RECORD SAVED SUCESSFULLY!");
            	
@@ -257,12 +256,12 @@ if(e.getSource()==b2)
 		}
 		catch(SQLException ex)
 		{
+            ex.printStackTrace();
 		}
-		catch(ClassNotFoundException ex)
-		{
-		}
+
 		catch(Exception e2)	
 		{
+            e2.printStackTrace();
 		}
 }
 /*	else
@@ -272,11 +271,6 @@ if(e.getSource()==b2)
  
 
 }						
-public static void main(String args[])
-{
-   dstock d=new dstock();
-    d.show();
-   d.setDefaultCloseOperation(d.EXIT_ON_CLOSE);
-}
+
 
 }       
