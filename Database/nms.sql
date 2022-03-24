@@ -161,7 +161,7 @@ DROP TABLE IF EXISTS `plant`;
 CREATE TABLE `plant` (
   `P_no` tinyint DEFAULT NULL,
   `p_name` varchar(100) DEFAULT NULL,
-  `p_categary` varchar(100) DEFAULT NULL,
+   `p_categary` varchar(100) DEFAULT NULL,
   `p_rate` smallint DEFAULT NULL
 ) ;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -239,12 +239,11 @@ DROP TABLE IF EXISTS `stock`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `stock` (
-  `ID` tinyint DEFAULT NULL,
-  `p_no` tinyint DEFAULT NULL,
+  `ID` int DEFAULT NULL,
   `p_name` varchar(100) DEFAULT NULL,
   `p_categary` varchar(100) DEFAULT NULL,
-  `date` varchar(100) DEFAULT NULL,
-  `p_qty` smallint DEFAULT NULL
+   `p_price` varchar(100) DEFAULT NULL,
+  `p_qty` int DEFAULT NULL
 ) ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
