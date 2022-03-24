@@ -17,12 +17,10 @@ import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import java.util.Calendar;
 import javax.swing.SwingConstants;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.Statement;
 
 
-public class CustomerBill extends JFrame implements ActionListener {
+public class CustomerBillPrev extends JFrame implements ActionListener {
 
 	JLabel l, l1, l2, l3, l4, l5, dt;
 	JButton b1, b2, b3;
@@ -30,7 +28,7 @@ public class CustomerBill extends JFrame implements ActionListener {
 
 	JTextField customerId, customerName, customerAddress, Amount, Date;
 
-	public CustomerBill() {
+	public CustomerBillPrev() {
 		super(" CUSTOMER RECEIVE ");
 
 		p1 = new JPanel();
@@ -228,7 +226,7 @@ public class CustomerBill extends JFrame implements ActionListener {
 	}
 
 	public static void main(String args[]) {
-		CustomerBill c1 = new CustomerBill();
+		CustomerBillPrev c1 = new CustomerBillPrev();
 		c1.show();
 		c1.setDefaultCloseOperation(c1.EXIT_ON_CLOSE);
 	}

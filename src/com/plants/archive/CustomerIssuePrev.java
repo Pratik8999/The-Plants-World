@@ -9,7 +9,7 @@ import javax.swing.border.*;
 import java.sql.*;
 import java.util.Calendar;
 
-public class CustomerIssue extends JFrame implements ActionListener {
+public class CustomerIssuePrev extends JFrame implements ActionListener {
 
 	JLabel l, l1, l2, l3, l4, l5, dt;
 	JButton b1, b2, b3;
@@ -17,7 +17,7 @@ public class CustomerIssue extends JFrame implements ActionListener {
 
 	JTextField tf2, tf3, tf4, tf5, dt1;
 
-	public CustomerIssue() {
+	public CustomerIssuePrev() {
 		super(" CUSTOMER ISSUE ");
 
 		p1 = new JPanel();
@@ -202,7 +202,7 @@ public class CustomerIssue extends JFrame implements ActionListener {
 	}
 
 	public static void main(String args[]) {
-		CustomerIssue c1 = new CustomerIssue();
+		CustomerIssuePrev c1 = new CustomerIssuePrev();
 		c1.show();
 		c1.setDefaultCloseOperation(c1.EXIT_ON_CLOSE);
 	}
