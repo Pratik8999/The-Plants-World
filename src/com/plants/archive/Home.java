@@ -1,228 +1,218 @@
 package com.plants.archive;
 
+import com.plants.DatabasePipleline.GlobleConnection;
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import javax.swing.border.*;
+
+/**
+ *
+ * @Author: Pratik Joshi
+ * @Date : 01 March 2022
+ * @Info : Home Screen Of The Plants World Application
+ *
+ */
 
 class Home extends JFrame implements ActionListener {
-    JPanel p1, p2, p3, p4;
-    JButton b1, b2, b3, b4, b5;
-    JLabel l1, l2;
-    Menu Stock, Maintenance, Customer, Bill;
-    MenuBar mb;
-    MenuItem i1, i2, i3, i4, i5, i6, i7, i8;
-    Icon img;
 
-    public Home()
-    {
+    JButton Stockbtn, SaleBtn, CreateUser, CustManageBtn,BillBtn,AddSaleBtn;
+    JLabel frameTitlelabel, bgImageLabel;
+    JMenu plantMenuItem, Maintenance, Customer,loginDetails;
+    JMenuBar menuBar,loginMenuBar;
+    JMenuItem plantDetailsItem,informationItem, customerIssueItem, customerRegistrationItem,logoutItem,accountSettingItem;
+    Icon iconImage;
+
+    public Home() {
+
         super("Nursery Home");
-        p1 = new JPanel();
-        p2 = new JPanel();
-        p4 = new JPanel();
 
-        img = new ImageIcon("");
-        l2 = new JLabel(img);
-        l2.setBounds(10, 100, 480, 310);
-        p1.add(l2);
-        b1 = new JButton("STOCK");
-        b2 = new JButton("PURCHASE");
-        b3 = new JButton("SALE");
-        b4 = new JButton("REPORT");
-        b5 = new JButton("CLOSE");
+        setLayout(null);
 
-        mb = new MenuBar();
-        Stock = new Menu("PLANT");
-        Maintenance = new Menu("MAINTENANCE");
-        i6 = new MenuItem("INFORMATION");
-        Customer = new Menu("CUSTOMER");
-        i7 = new MenuItem("CUSTOMER ISSUE");
-        i8 = new MenuItem("CUSTOMER REGISTRATION");
-        i1 = new MenuItem("PLANT DETAILS");
-        Bill = new Menu("BILL");
-        i3 = new MenuItem("FOR SALE");
-        i4 = new MenuItem("FOR RENT");
-        i5 = new MenuItem("EXIT");
+        Stockbtn = new JButton("STOCK");
+        SaleBtn = new JButton("SALE");
+        CreateUser = new JButton("Create User");
+        CustManageBtn = new JButton("Manage Customers");
+        BillBtn = new JButton("Generate Bill");
+        AddSaleBtn = new JButton("Related Ingredients");
 
-        i1.addActionListener(this);
-        i3.addActionListener(this);
-        i4.addActionListener(this);
-        i5.addActionListener(this);
-        i6.addActionListener(this);
-        i7.addActionListener(this);
-        i8.addActionListener(this);
-        Stock.add(i1);
-        Stock.add(Bill);
-        Bill.add(i3);
-        Bill.add(i4);
-        Stock.addSeparator();
-        Stock.add(i5);
-        Stock.addSeparator();
+        frameTitlelabel = new JLabel("   The Plants World");
+        bgImageLabel = new JLabel(new ImageIcon("G:\\My Drive\\The-Plants-World\\Resources\\Frame Image.jpg"));
+
+        menuBar = new JMenuBar();
+        loginMenuBar = new JMenuBar();
+
+        plantMenuItem = new JMenu("PLANT");
+        plantDetailsItem = new JMenuItem("PLANT DETAILS");
+
+        Maintenance = new JMenu("MAINTENANCE");
+
+        informationItem = new JMenuItem("INFORMATION");
+
+        Customer = new JMenu("CUSTOMER");
+
+        customerIssueItem = new JMenuItem("CUSTOMER ISSUE");
+        customerRegistrationItem = new JMenuItem("CUSTOMER REGISTRATION");
+
+        loginDetails = new JMenu("  Login");
+
+        accountSettingItem  = new JMenuItem("Settings");
+        logoutItem = new JMenuItem("Logout");
+
+        plantDetailsItem.addActionListener(this);
         Maintenance.addActionListener(this);
-        mb.add(Stock);
-        mb.add(Maintenance);
-        mb.add(Customer);
-        Maintenance.add(i6);
-        Customer.add(i7);
-        Customer.add(i8);
+        informationItem.addActionListener(this);
+        customerIssueItem.addActionListener(this);
+        customerRegistrationItem.addActionListener(this);
+        accountSettingItem.addActionListener(this);
+        logoutItem.addActionListener(this);
 
-        setMenuBar(mb);
+        plantMenuItem.add(plantDetailsItem);
+        Maintenance.add(informationItem);
+        Customer.add(customerIssueItem);
+        Customer.add(customerRegistrationItem);
+        loginDetails.add(accountSettingItem);
+        loginDetails.add(logoutItem);
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                setVisible(false);
-            }
-        });
+        menuBar.add(plantMenuItem);
+        menuBar.add(Maintenance);
+        menuBar.add(Customer);
+        loginMenuBar.add(loginDetails);
 
-        Container contentPane = getContentPane();
-        getContentPane().setLayout(null);
+        frameTitlelabel.setSize(280,37);
+        frameTitlelabel.setFont(new Font("Arial Bold", Font.BOLD, 30));
+        frameTitlelabel.setForeground(new Color(0-0-0 ));
+        frameTitlelabel.setLocation(185,33);
+        add(frameTitlelabel);
 
-        p2.setBackground(new Color(190, 170, 255));
-        p2.setLayout(null);
-        contentPane.add(p2);
-        p2.setBounds(500, 125, 230, 260);
-        p2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 4, true));
+        bgImageLabel.setSize(700,535);
+        bgImageLabel.setLocation(0,0);
+        add(bgImageLabel);
 
-        p4.setBackground(new Color(51-153-255));
-        p4.setLayout(null);
-        contentPane.add(p4);
-        p4.setBounds(190, 16, 380, 50);
+        menuBar.setSize(616,20);
+        menuBar.setLocation(0,0);
+        menuBar.setBackground(new Color(91, 204, 143));
+        loginMenuBar.setSize(80,20);
+        loginMenuBar.setLocation(616,0);
+        bgImageLabel.add(menuBar);
+        bgImageLabel.add(loginMenuBar);
 
-        p1.setBackground(new Color(204,204,250));
-        p1.setLayout(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        contentPane.add(p1);
-        p1.setBounds(0, 0, 800, 575);
+        Stockbtn.setFont(new Font("Arial", 1, 18));
+        Stockbtn.setBackground(new Color(240, 176, 110));
+        Stockbtn.setForeground(new Color(0,0,0));
+        Stockbtn.setBounds(540,150,135,32);
+        Stockbtn.addActionListener(this);
+        bgImageLabel.add(Stockbtn);
 
-        l1 = new JLabel("The Plants World", JLabel.CENTER);
+        SaleBtn.setFont(new Font("Arial", 1, 18));
+        SaleBtn.setBackground(new Color(214, 152, 182));
+        SaleBtn.setForeground(new Color(0,0,0));
+        SaleBtn.setBounds(540,225,135,32);
+        //SaleBtn.setBorder(new LineBorder(new Color(0-0-0),1,false));
+        SaleBtn.addActionListener(this);
+        bgImageLabel.add(SaleBtn);
 
-        b1.setFont(new Font("Arial", 0, 18));
-        b1.setMnemonic('a');
-        b1.setForeground(new Color(255, 51, 51));
-        b1.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-        p1.add(b5);
-        p2.add(b1);
-        b1.addActionListener(this);
-        b1.setBounds(20, 20, 180, 40);
+        CreateUser.setFont(new Font("Arial", 1, 18)); //
+        CreateUser.setBackground(new Color(162, 109, 237));
+        CreateUser.setForeground(new Color(0,0,0));
+        CreateUser.setBounds(536,300,145,32);
+        CreateUser.addActionListener(this);
+        bgImageLabel.add(CreateUser);
 
-        b2.setFont(new Font("Arial", 0, 18));
-        // b2.setMnemonic('a');
-        b2.setForeground(new Color(255, 51, 51));
-        b2.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-        p1.add(b5);
-        p2.add(b2);
-        b2.addActionListener(this);
-        b2.setBounds(20, 180, 180, 40);
+        CustManageBtn.setFont(new Font("Arial", 1, 16));
+        CustManageBtn.setBackground(new Color(167, 149, 245));
+        CustManageBtn.setForeground(new Color(0,0,0));
+        CustManageBtn.setBounds(320,150,195,32);
+        CustManageBtn.addActionListener(this);
+        bgImageLabel.add(CustManageBtn);
 
-        b3.setFont(new Font("Arial", 0, 18));
-        // b3.setMnemonic('a');
-        b3.setForeground(new Color(255, 51, 51));
-        b3.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-        p1.add(b5);
-        p2.add(b3);
-        b3.addActionListener(this);
-        b3.setBounds(20, 100, 180, 40);
+        BillBtn.setFont(new Font("Arial", 1, 16));
+        BillBtn.setBackground(new Color(174, 232, 179));
+        BillBtn.setForeground(new Color(0,0,0));
+        BillBtn.setBounds(320,225,195,32);
+        BillBtn.addActionListener(this);
+        bgImageLabel.add(BillBtn);
 
-        b4.setFont(new Font("Arial", 0, 18));
-        // b4.setMnemonic('r');
-        b4.setForeground(new Color(255, 51, 51));
-        b4.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-        p1.add(b4);
-        p1.add(b4);
-        b4.addActionListener(this);
-        b4.setBounds(100, 440, 120, 40);
+        AddSaleBtn.setFont(new Font("Arial", 1, 16));
+        AddSaleBtn.setBackground(new Color(247, 206, 92));
+        AddSaleBtn.setForeground(new Color(0,0,0));
+        AddSaleBtn.setBounds(320,300,195,32);
+        AddSaleBtn.addActionListener(this);
+        bgImageLabel.add(AddSaleBtn);
 
-        b5.setFont(new Font("Arial", 0, 18));
-        // b5.setMnemonic('b');
-        b5.setForeground(new Color(255, 51, 51));
-        b5.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-        p1.add(b5);
-        b5.addActionListener(this);
-        b5.setBounds(290, 440, 120, 40);
-
-        Font f = new Font("Charlemagne", Font.BOLD, 25);
-        l1.setFont(f);
-        l1.setForeground(Color.black);
-        //l1.setBackground(Color.green);
-        p4.add(l1);
-        l1.setBounds(10, 5, 330, 40);
-        setIconImage(Toolkit.getDefaultToolkit().getImage("out/production/ENV/resources/Main Frame Icon.jpg"));
-        setLocation(350,140);
-        setSize(800, 575);
+        //this.getContentPane().setBackground(new Color(92, 204, 143));
+        setIconImage(Toolkit.getDefaultToolkit().getImage("G:\\My Drive\\The-Plants-World\\Resources\\Frame Icons\\Home Screen Green Tree.jpg"));
+        setSize(700, 540);
+        setLocation(430, 122);
         setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        //this.changeBg();
+    }
 
+    public void changeBg() {
+        try {
+            String[] imagePaths={"G:\\My Drive\\The-Plants-World\\Resources\\Frame Image2.jpg","G:\\My Drive\\The-Plants-World\\Resources\\leonie-christine-JGJ51l7Uh_E-unsplash.jpg","G:\\My Drive\\The-Plants-World\\Resources\\sigmund-3WJIBxjWVYI-unsplash.jpg",""};
+
+            for (int i = 0; i < imagePaths.length; i++) {
+                Thread.sleep(1000);
+                bgImageLabel.setIcon(new ImageIcon(imagePaths[i]));
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public void actionPerformed(ActionEvent e) {
 
-           if(e.getActionCommand().equalsIgnoreCase("Customer Registration"))
-           {
-               dispose();
-               new CustomerBill();
-           }
-
-            if (e.getActionCommand().equalsIgnoreCase("Stock")) {
+        if (e.getActionCommand().equalsIgnoreCase("Customer Registration")) {
             dispose();
-            new stock();
-
-        }
-        if (e.getActionCommand().equalsIgnoreCase("Purchase")) {
-            dispose();
-            new Purchase();
+            new CustomerBill();
         }
 
         if (e.getActionCommand().equalsIgnoreCase("Sale")) {
-            dispose();
-            new Sale();
-        }
-        if (e.getActionCommand().equalsIgnoreCase("Report")) {
-            dispose();
-            new Reports();
 
         }
+
         if (e.getActionCommand().equalsIgnoreCase("Stock")) {
             dispose();
-
+            new Plantstock();
         }
+
         if (e.getActionCommand().equalsIgnoreCase("Information")) {
             dispose();
             new Maint();
-
-        }
-        if (e.getActionCommand().equalsIgnoreCase("Plant Details")) {
-            dispose();
-            new pdetail();
-
-        }
-        if (e.getActionCommand().equalsIgnoreCase("For Sale")) {
-            dispose();
-            new Bill1();
-        }
-
-        if (e.getActionCommand().equalsIgnoreCase("PURCHASE REPORT"))
-        {
-            dispose();
-            new Reports();
         }
 
         if (e.getActionCommand().equalsIgnoreCase("Customer Issue")) {
             dispose();
             new CustomerIssue();
         }
-        if (e.getActionCommand().equalsIgnoreCase("Rbill")) {
+
+        if(e.getActionCommand().equalsIgnoreCase("Exit") || e.getActionCommand().equalsIgnoreCase("Logout"))
+        {
             dispose();
-            new Rbill();
         }
 
+        if (e.getSource() == plantDetailsItem) {
+            dispose();
+            new AddPlants();
+        }
 
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
 
-        new UserLogin();
-
-
-        //h.setDefaultCloseOperation(h.EXIT_ON_CLOSE);
+        try {
+            //int i = 5 / 0;
+            GlobleConnection.authenticator("root", "root@123", "Admin");
+            //new Home();
+            new UserLogin();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Unable To Launch Application.\nPlease Contact Application Support: apsupport@supportmail.com", "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
     }
 }
